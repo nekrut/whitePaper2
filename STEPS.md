@@ -652,6 +652,219 @@ Updated figure references in manuscript to use local filenames
 
 ---
 
-*SRA analysis completed: December 3, 2025*
+## Phase 9: Citation Management Setup
+
+### Step 9.1: Create BibTeX Bibliography
+- **Date**: December 3, 2025
+- **Tool**: Write
+- **File**: `references.bib`
+- **Content**: 20+ BibTeX entries organized by category:
+  - Primary validation studies (Santana, Wang)
+  - First description (Satoh 2009)
+  - Public health authorities (CDC, WHO, NIAID)
+  - IWC and Galaxy resources
+  - RNA-seq best practices
+  - NCBI resources
+  - High-impact publications from survey
+
+### Step 9.2: Create Compilation Script
+- **Tool**: Write
+- **File**: `compile.sh`
+- **Features**:
+  - Pandoc version detection (2.9 vs 2.11+)
+  - Automatic citation processor selection (--citeproc vs --filter pandoc-citeproc)
+  - PDF, DOCX, HTML output formats
+  - Vancouver (numbered) citation style support
+- **Fixed issues**:
+  - `--citeproc` not available in Pandoc 2.9.2.1
+  - Unicode characters (>=, ->, ^2) not supported by pdflatex
+
+### Step 9.3: Download Citation Style
+- **Tool**: Bash (wget)
+- **File**: `vancouver-brackets.csl`
+- **Source**: https://raw.githubusercontent.com/citation-style-language/styles/master/vancouver-brackets.csl
+- **Result**: NIH-style numbered citations [1], [2], etc.
+
+### Step 9.4: Convert Manuscript Citations
+- **Action**: Replaced numbered references [1], [2] with BibTeX keys [@satoh2009], [@santana2023]
+- **Syntax**: Pandoc citation format
+  - Single: `[@key]`
+  - Multiple: `[@key1; @key2]`
+  - In-text: `@key showed...`
+
+### Step 9.5: Create Citation Guide
+- **Tool**: Write
+- **File**: `CITATION_GUIDE.md`
+- **Content**: Complete documentation for citation system usage
+- **Sections**: Quick start, syntax, adding references, troubleshooting
+
+### Step 9.6: Fix Compilation Errors
+- **Error 1**: `Unknown option --citeproc`
+  - **Cause**: Pandoc 2.9.2.1 uses older syntax
+  - **Fix**: Version detection with fallback to `--filter pandoc-citeproc`
+
+- **Error 2**: `LaTeX Error: File 'xcolor.sty' not found`
+  - **Fix**: User installed `texlive-latex-extra texlive-fonts-extra`
+
+- **Error 3**: `Unicode character >= (U+2265) not set up for use with LaTeX`
+  - **Fix**: Replaced Unicode with ASCII: >= for >=, -> for ->, ^2 for superscript
+
+---
+
+## Phase 10: Figure Embedding
+
+### Step 10.1: Copy Figure Files
+- **Date**: December 3, 2025
+- **Action**: Copied 4 figures from analysis repos to whitePaper2/
+- **Files**:
+  - `Figure1_combined_overview.png` (555 KB)
+  - `Figure2_combined_analysis.png` (454 KB)
+  - `Figure3_santana_validation.png` (274 KB)
+  - `Figure4_wang_validation.png` (294 KB)
+
+### Step 10.2: Embed Figures in Manuscript
+- **Syntax**: `![Caption](filename.png)`
+- **Placements**:
+  - Figure 1: After first mention in Introduction (literature survey)
+  - Figure 2: After standardization challenges paragraph
+  - Figure 3: After Santana validation results
+  - Figure 4: After Wang validation results
+- **Removed**: Old "Figures" section at end (now inline)
+
+### Step 10.3: Update Figure Captions
+- **Action**: Shortened captions for clarity
+- **Removed**: AI comparison point from Figure 2 caption (tangential)
+
+### Step 10.4: Verify PDF Compilation
+- **Result**: PDF 1.6 MB (confirms figures embedded)
+- **Previous**: 215 KB (text only)
+
+---
+
+## Phase 11: Manuscript Improvements
+
+### Step 11.1: Review Against logical_outline.md
+- **Date**: December 3, 2025
+- **Issues identified**:
+  1. Superficial language (superlatives like "remarkable", "exceptional")
+  2. AI comparison tangent (Claude vs ChatGPT) not in outline
+  3. Local paths instead of GitHub URLs
+  4. Verbose prose (outline: "be precise, clear, succinct")
+  5. GEO-focused survey not emphasized per outline
+
+### Step 11.2: Tighten Prose
+- **Introduction paragraph 1**: Reduced ~350 to ~250 words
+  - Removed: "remarkable ability", "emerging", redundant phrases
+- **Introduction paragraphs 2-3**: Consolidated, removed redundancy
+- **Introduction paragraph 4**: Streamlined IWC description
+- **Limitations**: 5 sentences to 4
+- **Recommendations**: Removed verbose phrases
+
+### Step 11.3: Remove AI Comparison Tangent
+- **Action**: Removed Claude vs ChatGPT comparison from main text
+- **Reason**: Tangential to main point about genome standardization
+- **Updated**: Figure 2 caption accordingly
+
+### Step 11.4: Convert Local Paths to GitHub URLs
+- **Changed**:
+  - `/home/anton/git/claude-projects/rnaseq/Cauris_rna_seq_survey/`
+    -> `https://github.com/nekrut/claude-projects/tree/main/rnaseq/Cauris_rna_seq_survey`
+  - Similar changes for santana24 and wang24 analysis paths
+- **Updated**: Methods section and Supplementary Materials
+
+### Step 11.5: Emphasize GEO-Focused Survey
+- **Per outline**: "focus on geo data and data NOT pulled with ChatGPT"
+- **Changes**:
+  - Reordered to mention GEO first in survey description
+  - Simplified to "NCBI GEO database mining combined with PubMed/Europe PMC searches"
+
+### Step 11.6: Remove TOC and Section Numbers
+- **User request**: Clean formatting without table of contents
+- **Changes to compile.sh**:
+  - Removed `--toc` flag
+  - Removed `--number-sections` flag
+
+### Step 11.7: Final Compilation
+- **Result**: PDF compiled successfully with all improvements
+- **File size**: 1.6 MB (with figures)
+
+---
+
+## Phase 12: Git Setup and Push
+
+### Step 12.1: Initial Commit
+- **Date**: December 3, 2025
+- **Command**: `git add -A && git commit -m "Initial commit..."`
+- **Files committed**: 14 files (29,314 insertions)
+- **Commit**: 36e4d36
+
+### Step 12.2: Create GitHub Repository
+- **Tool**: GitHub CLI (gh)
+- **Prerequisites**:
+  - Install: `sudo apt install gh`
+  - Authenticate: `gh auth login`
+- **Command**: `gh repo create whitePaper2 --public --source=. --push`
+- **Issue**: Remote "origin" already existed from failed attempt
+- **Fix**: `git remote set-url origin git@github.com:nekrut/whitePaper2.git`
+
+### Step 12.3: Push to GitHub
+- **Command**: `git push -u origin main`
+- **Result**: Successfully pushed to https://github.com/nekrut/whitePaper2
+- **Branch**: main
+
+---
+
+## Phase 13: Documentation Finalization
+
+### Step 13.1: Create README.md
+- **Date**: December 3, 2025
+- **Content**:
+  - Project overview and key findings
+  - Repository structure
+  - Quick start (compilation)
+  - Manuscript summary with statistics
+  - Data sources and Galaxy histories
+  - Citation management guide
+  - Figure descriptions
+  - Methods summary
+  - Status checklist
+
+### Step 13.2: Update STEPS.md
+- **Action**: Added Phases 9-13 documenting:
+  - Citation management setup
+  - Figure embedding
+  - Manuscript improvements
+  - Git setup and push
+  - Documentation finalization
+
+---
+
+## Final Summary
+
+### Completed Deliverables
+
+1. **MANUSCRIPT.md** - Complete draft with inline figures, BibTeX citations
+2. **MANUSCRIPT.pdf** - Compiled PDF (1.6 MB with figures)
+3. **compile.sh** - Pandoc compilation script with version detection
+4. **references.bib** - 20+ BibTeX entries
+5. **vancouver-brackets.csl** - NIH numbered citation style
+6. **Figures 1-4** - PNG files embedded in manuscript
+7. **CITATION_GUIDE.md** - Citation system documentation
+8. **REFERENCES.md** - Organized reference list
+9. **STEPS.md** - Complete research/writing documentation
+10. **README.md** - Repository documentation
+
+### Remaining Work
+
+1. **User to write**: "Obtaining Data from BRC-Analytics" section in Results
+
+### Repository
+
+- **URL**: https://github.com/nekrut/whitePaper2
+- **Branch**: main
+- **Commit**: 36e4d36
+
+---
+
 *Documentation completed: December 3, 2025*
-*Ready for user review and iteration*
+*All phases documented and repository published*
