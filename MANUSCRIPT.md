@@ -8,11 +8,30 @@
 
 ## Introduction
 
-*Candidozyma auris* (formerly *Candida auris*; NCBI:txid498019) represents one of most urgent antimicrobial resistance threats facing global health systems. First isolated from external ear canal of Japanese hospital patient in 2009 [@satoh2009], this fungal pathogen has since spread worldwide. CDC classifies *C. auris* as an urgent threat---the first fungal pathogen to receive this designation---due to multidrug resistance (often to all major antifungal classes), healthcare-associated transmission, and 30-60% mortality rates [@cdc2023threat; @cdc2025continuing]. *C. auris* persists on surfaces, colonizes skin, and forms biofilms on medical devices, enabling difficult-to-control nosocomial outbreaks [@cdc2025continuing]. WHO designates *C. auris* as critical-priority fungal pathogen [@who2024fungal], and NIAID has prioritized development of new therapeutics [@niaid2024cauris]. This clinical significance makes *C. auris* an important subject for genomic research.
+*Candidozyma auris* (formerly *Candida auris*; NCBI:txid498019) represents one of most urgent antimicrobial resistance threats facing global health systems. First isolated from external ear canal of Japanese hospital patient in 2009 [@satoh2009], this fungal pathogen has since spread worldwide. CDC classifies *C. auris* as an urgent threat---the first fungal pathogen to receive this designation---due to multidrug resistance (often to all major antifungal classes), healthcare-associated transmission, and 30-60% mortality rates [@cdc2023threat; @cdc2025continuing]. *C. auris* persists on surfaces, colonizes skin, and forms biofilms on medical devices, enabling difficult-to-control nosocomial outbreaks [@cdc2025continuing]. WHO designates *C. auris* as critical-priority fungal pathogen [@who2024fungal], and NIAID has prioritized development of new therapeutics [@niaid2024cauris]. 
 
-RNA sequencing has become major methodology for studying *C. auris* biology and pathogenesis. A literature survey combining NCBI GEO database mining and PubMed/Europe PMC searches identified 32 published RNA-seq studies spanning 2018-2025 (Table 1).
+The amount of public sequencing data available for *C. auris* is relatively modest (Table 1).
 
-**Table 1**: Summary of *C. auris* RNA-seq literature survey (32 studies, 2018-2025)
+**Table 1**: Summary of *C. auris* sequencing data in NCBI SRA (December 2025)
+
+| Assay Type | BioProjects | Total Runs | Total Bases | Avg Runs/Project |
+|------------|-------------|------------|-------------|------------------|
+| WGS | 168 | 26,201 | 45.6 Tb | 156.0 |
+| RNA-Seq | 64 | 812 | 4.7 Tb | 12.7 |
+| AMPLICON | 4 | 87 | 17.2 Gb | 21.8 |
+| WGA | 2 | 38 | 34.3 Gb | 19.0 |
+| miRNA-Seq | 1 | 24 | 4.7 Gb | 24.0 |
+| ChIP-Seq | 2 | 14 | 112.5 Gb | 7.0 |
+| OTHER | 2 | 13 | 40.0 Gb | 6.5 |
+| Tn-Seq | 1 | 6 | 19.7 Gb | 6.0 |
+| Targeted-Capture | 1 | 5 | 2.8 Gb | 5.0 |
+| WCS | 1 | 1 | 2.1 Gb | 1.0 |
+| Bisulfite-Seq | 1 | 1 | 383.6 Mb | 1.0 |
+| **TOTAL** | **237** | **27,202** | **50.5 Tb** | |
+
+RNA sequencing has become major methodology for studying *C. auris* biology and pathogenesis. A literature survey combining NCBI GEO database mining and PubMed/Europe PMC searches identified 32 published RNA-seq studies spanning 2018-2025 (Table 2).
+
+**Table 2**: Summary of *C. auris* RNA-seq literature survey (32 studies, 2018-2025)
 
 | Category | Finding |
 |----------|---------|
