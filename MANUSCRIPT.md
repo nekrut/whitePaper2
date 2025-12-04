@@ -10,7 +10,7 @@
 
 *Candidozyma auris* (formerly *Candida auris*; NCBI:txid498019) represents one of most urgent antimicrobial resistance threats facing global health systems. First isolated from external ear canal of Japanese hospital patient in 2009 [@satoh2009], this fungal pathogen has since spread worldwide. CDC classifies *C. auris* as an urgent threat---the first fungal pathogen to receive this designation---due to multidrug resistance (often to all major antifungal classes), healthcare-associated transmission, and 30-60% mortality rates [@cdc2023threat; @cdc2025continuing]. *C. auris* persists on surfaces, colonizes skin, and forms biofilms on medical devices, enabling difficult-to-control nosocomial outbreaks [@cdc2025continuing]. WHO designates *C. auris* as critical-priority fungal pathogen [@who2024fungal], and NIAID has prioritized development of new therapeutics [@niaid2024cauris]. 
 
-The amount of public sequencing data available for *C. auris* is relatively modest (Table 1).
+The amount of public sequencing data available for *C. auris* is relatively modest (Table 1). 
 
 **Table 1**: Summary of *C. auris* sequencing data in NCBI SRA (December 2025). BioProject is an NCBI database entry grouping related sequencing runs from a single study. Assay types: WGS = whole genome sequencing; RNA-Seq = transcriptome sequencing; AMPLICON = targeted amplicon sequencing; WGA = whole genome amplification; miRNA-Seq = microRNA sequencing; ChIP-Seq = chromatin immunoprecipitation sequencing; Tn-Seq = transposon insertion sequencing; Targeted-Capture = hybridization capture sequencing; WCS = whole chromosome sequencing; Bisulfite-Seq = DNA methylation sequencing.
 
@@ -100,12 +100,6 @@ To quantify proportion of RNA-seq data in *C. auris* research, we analyzed compl
 
 For re-analysis validation, we selected Santana et al. (2023) *Science* (PRJNA904261) [@santana2023] and Wang et al. (2024) *Nature Communications* (PRJNA1086003) [@wang2024]. Survey analysis scripts available at https://github.com/nekrut/claude-projects/tree/main/rnaseq/Cauris_rna_seq_survey.
 
-### RNA-seq BioProject Literature Survey
-
-To characterize methodology across published *C. auris* RNA-seq studies, we performed systematic survey linking NCBI BioProjects to publications and extracting genome/tool information (Supplementary Table 1). First, we extracted all 64 RNA-seq BioProject accessions from SRA metadata by filtering Cauris_SRA.csv for Assay Type containing "RNA". For each BioProject, we queried EuropePMC REST API (https://www.ebi.ac.uk/europepmc/webservices/rest/) searching for papers mentioning BioProject accession in full text. Additionally, we queried NCBI E-utilities (elink.fcgi) for direct BioProject-to-PubMed links. This identified 21 papers linked to 20 of 64 BioProjects (31%); 44 BioProjects had no linked publications.
-
-For papers with PMC IDs, we retrieved full-text XML from EuropePMC and NCBI PMC using their respective APIs. We extracted reference genome information by searching for patterns: GenBank/RefSeq accessions (GC[AF]_\d{9}\.\d), strain names (B8441, B11220, B11221), and clade designations (Clade I-V). RNA-seq tools were extracted by searching for common software names: aligners (HISAT2, STAR, TopHat2, Bowtie2, BWA), quantification tools (featureCounts, HTSeq, RSEM, Salmon, Kallisto, StringTie, Cufflinks), and differential expression packages (DESeq2, edgeR, limma). Of 20 papers with linked BioProjects, 18 (90%) specified reference genome and 15 (75%) provided detailed tool information. Four papers were behind paywalls preventing full-text extraction. Results summarized in Supplementary Table 1 with detailed summaries in BioProject_PAPERS.md.
-
 ### Reference Genome and Annotation
 
 All analyses used *Candidozyma auris* B8441 reference genome GCA_002759435.3 obtained from NCBI Assembly database. GTF annotation file contained 5,593 genes. This represents most recent annotation version at time of analysis and corresponds to assemblies used in BRC-Analytics platform.
@@ -153,35 +147,7 @@ Validation statistics (Pearson correlation, Spearman correlation, direction agre
 
 ## Supplementary Materials
 
-**Supplementary Table 1**: RNA-seq BioProjects with linked publications, reference genomes, and analysis tools.
-
-| BioProject | PMID | Year | Runs | Reference Genome | RNA-seq Tools |
-|------------|------|------|------|------------------|---------------|
-| PRJEB57846 | 39297640 | 2024 | 12 | NS | WGS, RNA-seq |
-| PRJNA445471 | 30559369 | 2018 | 24 | B8441, B11220, B11243 | Bowtie2, TopHat2, RSEM, Trinity, edgeR |
-| PRJNA477447 | 29997121 | 2018 | 22 | B8441 (de novo) | Trinity, HISAT2, Kallisto, DESeq2 |
-| PRJNA682185 | 34630944 | 2021 | 36 | B8441 (GCA_002759435.2) | DESeq2, edgeR |
-| PRJNA682422 | 34180774 | 2021 | 6 | B8441 (GCA_002759435.2) | fastp, STAR, featureCounts, DESeq2 |
-| PRJNA735406 | 34354695 | 2021 | 6 | B11221 (Clades I-V) | Trimmomatic, HISAT2, HTSeq, DESeq2 |
-| PRJNA788930 | 35652307 | 2022 | 12 | NS | RNA-seq |
-| PRJNA792028 | 36913408 | 2023 | 6 | GCA_002759435.2 | HiSat2, StringTie, DESeq2 |
-| PRJNA801628 | 35473297 | 2022 | 24 | B8441, B11221, B11243 | HISAT2, featureCounts, edgeR |
-| PRJNA830685 | 36445083 | 2022 | 12 | B8441, CBS10913 | fastp, BWA, Bowtie2, HTSeq, DESeq2 |
-| PRJNA902676 | 38722168 | 2024 | 40 | B11220, B11221 | Kallisto, DESeq2 |
-| PRJNA904261 | 37769084 | 2023 | 6 | B8441 (Clade I) | RNA-seq |
-| PRJNA1012821 | 40468551 | 2025 | 8 | B8441, B11220 (CGD) | FastQC, fastp, Bowtie2, HTSeq, DESeq2 |
-| PRJNA1015296 | 38493178 | 2024 | 15 | B8441 (GCA_002759435.2) | HiSat2, StringTie, DESeq2, BWA |
-| PRJNA1036037 | 39480072 | 2024 | 12 | Clade IV | RNA-seq |
-| PRJNA1086003 | 39455573 | 2024 | 13 | B8441 (Clade I) | HISAT2, STAR, DESeq2 |
-| PRJNA1139166 | 40099908 | 2025 | 15 | B8441 (GCA_002759435.2) | fastp, cutadapt, STAR, featureCounts |
-| PRJNA1208975 | 40530673 | 2025 | 9 | Clade I | RNA-seq |
-| PRJNA1232830 | 40066990 | 2025 | 6 | Clade I | RNA-seq |
-| PRJNA1291775 | 40863525 | 2025 | 6 | Clades III, IV | Trimmomatic, STAR, featureCounts, DESeq2 |
-| **TOTAL** | | | **290** | | |
-
-*NS = Not specified in available text. Runs = number of RNA-seq datasets in BioProject. 44 additional RNA-seq BioProjects had no linked publications. Full details in BioProject_PAPERS.md.*
-
-**Supplementary Table 2**: Complete list of 32 *C. auris* RNA-seq studies from GEO/PubMed survey with PMIDs, genome versions, tools, and research focus.
+**Supplementary Table 1**: Complete list of 32 *C. auris* RNA-seq studies with PMIDs, genome versions, tools, and research focus.
 *Source: https://github.com/nekrut/claude-projects/blob/main/rnaseq/Cauris_rna_seq_survey/combined/combined_data.csv*
 
 **Supplementary File 1**: Galaxy workflow diagrams for re-analyses.
