@@ -866,5 +866,86 @@ Updated figure references in manuscript to use local filenames
 
 ---
 
-*Documentation completed: December 3, 2025*
-*All phases documented and repository published*
+## Phase 14: RNA-seq BioProject Literature Survey
+
+### Step 14.1: Extract RNA-seq BioProjects
+- **Date**: December 4, 2025
+- **Action**: Extracted all 64 RNA-seq BioProject IDs from Cauris_SRA.csv
+- **Command**: `awk -F',' 'NR>1 && $2=="RNA-Seq" {print $5}' Cauris_SRA.csv | sort -u`
+- **Result**: Saved to `/tmp/rnaseq_bioprojects.txt`
+
+### Step 14.2: Search EuropePMC for Linked Papers
+- **API**: https://www.ebi.ac.uk/europepmc/webservices/rest/
+- **Method**: Query each BioProject ID for papers mentioning it in full text
+- **Results**: Found 18 BioProjects with linked papers (23 papers total)
+
+### Step 14.3: Search NCBI E-utilities for BioProject-PubMed Links
+- **API**: elink.fcgi (dbfrom=bioproject, db=pubmed)
+- **Additional findings**: 2 more BioProjects with linked papers
+- **Total**: 20 BioProjects with 21 linked papers
+
+### Step 14.4: Fetch Full Text from PMC
+- **API**: EuropePMC fullTextXML and NCBI efetch
+- **Purpose**: Extract genome and tool information from Methods sections
+- **Results**:
+  - All 21 papers had PMC IDs
+  - 17 papers accessible via PMC APIs
+  - 4 papers behind paywalls (404 errors)
+
+### Step 14.5: Extract Genome and Tool Information
+- **Genome patterns**: GC[AF]_\d{9}\.\d, B8441, B11220, B11221, Clade I-V
+- **Tool patterns**: HISAT2, STAR, Bowtie2, featureCounts, HTSeq, DESeq2, edgeR, etc.
+- **Results**:
+  - 18/20 papers (90%) specified reference genome
+  - 15/20 papers (75%) provided detailed tool information
+  - Most common: B8441 (GCA_002759435.x) - 12 papers
+  - Most common tools: DESeq2 (12), HISAT2 (7), STAR (5)
+
+### Step 14.6: Create BioProject_PAPERS.md
+- **File**: `/home/anton/git/whitePaper2/BioProject_PAPERS.md`
+- **Content**:
+  - Overview with statistics
+  - Consolidated table (BioProject, PMID, Year, Runs, Genome, Tools)
+  - Detailed summaries for each of 20 papers
+  - List of 44 BioProjects without linked publications
+
+### Step 14.7: Add to Manuscript
+- **Added**: Supplementary Table 1 with 20-row table
+- **Added**: M&M section "RNA-seq BioProject Literature Survey"
+- **Note**: User later removed M&M section and table, keeping only BioProject_PAPERS.md
+
+### Step 14.8: Final Commit
+- **Commit**: 4e68baf
+- **Files**: BioProject_PAPERS.md (new), MANUSCRIPT.md/pdf (updated)
+
+---
+
+## Current Project Status (December 4, 2025)
+
+### Completed
+- [x] Literature survey (32 papers, 2018-2025)
+- [x] SRA analysis (27,201 runs, 237 BioProjects, 64 RNA-seq)
+- [x] Re-analysis of Santana et al. 2023 (R²=0.9996)
+- [x] Re-analysis of Wang et al. 2024 (r=0.9914-1.0000)
+- [x] Manuscript draft with citations and figures
+- [x] BioProject literature survey (20 papers linked to 64 BioProjects)
+
+### Pending
+- [ ] User to write "Obtaining Data from BRC-Analytics" section
+
+### Key Files
+- **MANUSCRIPT.md** - Main manuscript (Pandoc markdown)
+- **MANUSCRIPT.pdf** - Compiled PDF
+- **references.bib** - BibTeX bibliography
+- **BioProject_PAPERS.md** - RNA-seq BioProject survey results
+- **Cauris_SRA.csv** - Complete SRA metadata
+- **STEPS.md** - This file (process documentation)
+- **compile.sh** - PDF compilation script
+
+### Repository
+- **URL**: https://github.com/nekrut/whitePaper2
+- **Branch**: main
+
+---
+
+*Last updated: December 4, 2025*
