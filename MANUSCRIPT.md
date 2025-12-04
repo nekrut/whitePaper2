@@ -12,7 +12,7 @@
 
 The amount of public sequencing data available for *C. auris* is relatively modest (Table 1).
 
-**Table 1**: Summary of *C. auris* sequencing data in NCBI SRA (December 2025)
+**Table 1**: Summary of *C. auris* sequencing data in NCBI SRA (December 2025). BioProject is an NCBI database entry grouping related sequencing runs from a single study.
 
 | Assay Type | BioProjects | Total Runs | Total Bases | Avg Runs/Project |
 |------------|-------------|------------|-------------|------------------|
