@@ -10,7 +10,7 @@
 
 *Candidozyma auris* (formerly *Candida auris*; NCBI:txid498019) represents one of most urgent antimicrobial resistance threats facing global health systems. First isolated from external ear canal of Japanese hospital patient in 2009 [@satoh2009], this fungal pathogen has since spread worldwide. CDC classifies *C. auris* as an urgent threat---the first fungal pathogen to receive this designation---due to multidrug resistance (often to all major antifungal classes), healthcare-associated transmission, and 30-60% mortality rates [@cdc2023threat; @cdc2025continuing]. *C. auris* persists on surfaces, colonizes skin, and forms biofilms on medical devices, enabling difficult-to-control nosocomial outbreaks [@cdc2025continuing]. WHO designates *C. auris* as critical-priority fungal pathogen [@who2024fungal], and NIAID has prioritized development of new therapeutics [@niaid2024cauris]. 
 
-Compared to other key human pathogens (such as a SARS-CoV-2 or HIV, for example) the amount of publicly available sequence data for *C. auris* is modest (Table 1). Two categories of projects account for 98% of all data: whole genome sequencing efforts (WGS) and RNA-seq projects.  
+Compared to other key human pathogens (such as a SARS-CoV-2 or HIV, for example) the amount of publicly available sequence data for *C. auris* is modest (Table 1). Two categories of projects account for 98% of all data: whole genome sequencing efforts (WGS) and RNA-seq projects. The WGS data are mostly derived from outbreak surveillance efforts conducted by various state public health agencies (Supp. Table 2). The RNA-seq data on the other hand are produced by academic research labs. This reflects the importance of transcriptomic analyses to understanding of fundamental biology of this pathogen.   
 
 **Table 1**: Summary of *C. auris* sequencing data in NCBI SRA (December 2025). BioProject is an NCBI database entry grouping related sequencing runs from a single study. Assay types: WGS = whole genome sequencing; RNA-Seq = transcriptome sequencing; AMPLICON = targeted amplicon sequencing; WGA = whole genome amplification; miRNA-Seq = microRNA sequencing; ChIP-Seq = chromatin immunoprecipitation sequencing; Tn-Seq = transposon insertion sequencing; Targeted-Capture = hybridization capture sequencing; WCS = whole chromosome sequencing; Bisulfite-Seq = DNA methylation sequencing.
 
@@ -29,24 +29,23 @@ Compared to other key human pathogens (such as a SARS-CoV-2 or HIV, for example)
 | Bisulfite-Seq | 1 | 1 | 383.6 Mb | 1.0 |
 | **TOTAL** | **237** | **27,202** | **50.5 Tb** | |
 
-RNA sequencing has become major methodology for studying *C. auris* biology and pathogenesis. A literature survey combining NCBI GEO database mining and PubMed/Europe PMC searches identified 32 published RNA-seq studies spanning 2018-2025 (Table 2).
+RNA sequencing has become major methodology for studying *C. auris* biology and pathogenesis. To characterize methodology across published studies, we linked 64 RNA-seq BioProjects from SRA to their associated publications via EuropePMC and NCBI E-utilities APIs (Supplementary Table 1). Of 64 BioProjects, 20 (31%) have linked publications (21 papers total, 2018-2025); 44 remain unpublished or in preprint. For papers with available full text (17/20), we extracted reference genome and bioinformatics tool information (Table 2).
 
-**Table 2**: Summary of *C. auris* RNA-seq literature survey (32 studies, 2018-2025)
+**Table 2**: RNA-seq methodology across 20 published *C. auris* studies with linked BioProjects
 
 | Category | Finding |
 |----------|---------|
-| **Research Focus** | Drug resistance (34.4%), Stress response (18.8%), Biofilm (12.5%), Host-pathogen (12.5%) |
-| **Peak Year** | 2021 (11 papers, 34.4% of total) |
-| **Reference Genome** | B8441/GCA_002759435 (75% of studies) |
-| **Alignment Tool** | HISAT2 (62.5%), STAR (25%), Bowtie2 (12.5%) |
-| **Quantification** | HTSeq/featureCounts (50%), Cufflinks (18.8%) |
-| **DE Analysis** | DESeq2 (68.8%), edgeR (12.5%), Cuffdiff (9.4%) |
+| **Reference Genome** | B8441/GCA_002759435.x (12/20, 60%); multiple clades (5/20); not specified (2/20) |
+| **Alignment Tool** | HISAT2 (7), STAR (5), Bowtie2 (4), BWA (3), TopHat2 (1) |
+| **Quantification** | featureCounts (5), HTSeq (4), StringTie (2), Kallisto (2), RSEM (1) |
+| **DE Analysis** | DESeq2 (12), edgeR (4), Cufflinks (1) |
+| **Publication Years** | 2018 (2), 2021 (4), 2022 (4), 2023 (2), 2024 (5), 2025 (4) |
 
-Analysis of NCBI Sequence Read Archive (SRA) shows that while whole-genome sequencing dominates by run count (26,201 WGS vs 812 RNA-seq runs; 96.3% vs 3.0%), **64 of 237 *C. auris* BioProjects (27%) are RNA-seq studies**. This disparity reflects study design differences: WGS projects sequence many isolates for outbreak surveillance (average 156 runs/project), whereas RNA-seq examines specific biological conditions (average 13 runs/project). A consensus bioinformatics pipeline has emerged: HISAT2 (62.5%), HTSeq/featureCounts (50%), and DESeq2 (68.8%). Given that RNA-seq accounts for over one-quarter of *C. auris* research projects and is primary approach for understanding pathogen biology, standardizing RNA-seq analysis is a critical priority.
+While whole-genome sequencing dominates by run count (26,201 WGS vs 812 RNA-seq runs; 96.3% vs 3.0%), **64 of 237 *C. auris* BioProjects (27%) are RNA-seq studies**. This disparity reflects study design: WGS projects sequence many isolates for outbreak surveillance (average 156 runs/project), whereas RNA-seq examines specific biological conditions (average 13 runs/project). A consensus pipeline has emerged: HISAT2 or STAR alignment, featureCounts or HTSeq quantification, and DESeq2 differential expression. Given RNA-seq accounts for over one-quarter of *C. auris* research projects, standardizing analysis is a critical priority.
 
-Despite this growth, analysis approaches remain inconsistent regarding reference genomes and tool versions. Survey of 32 studies revealed that while 75% use B8441 reference genome (GCA_002759435 family), annotation versions vary widely---some cite only "B8441" without version, others specify precise assemblies (GCA_002759435.2, GCA_002759435.3, or variants like "s01-m01-r11") (Figure 1). This creates challenges for cross-study comparison and reproducibility. Gene identifiers differ between annotation versions: older annotations use 6-digit suffixes (e.g., B9J08_001458) while newer versions use 5-digit suffixes (e.g., B9J08_03708). Tool versions are frequently unspecified---while the field converges on HISAT2->HTSeq->DESeq2, exact versions and parameters vary. These findings underscore need for standardized platforms specifying precise genome versions, tool versions, and parameters---exactly what BRC-Analytics provides.
+Despite tool convergence, reference genome usage remains inconsistent. While 60% of published studies use B8441 (GCA_002759435 family), annotation versions vary---some cite only "B8441" without version, others specify GCA_002759435.2 or GCA_002759435.3 (Figure 1). This creates reproducibility challenges: gene identifiers differ between versions (6-digit suffixes like B9J08_001458 in older annotations vs 5-digit like B9J08_03708 in current). Tool versions are frequently unspecified. These findings underscore need for standardized platforms specifying precise genome versions, tool versions, and parameters---exactly what BRC-Analytics provides.
 
-![**Figure 1**: Challenges in *C. auris* RNA-seq standardization. (A) Genome annotation version variability across 32 studies, (B) Gene ID format differences between annotation versions requiring reconciliation, (C) Tool version reporting inconsistency.](Figure2_combined_analysis.png)
+![**Figure 1**: Challenges in *C. auris* RNA-seq standardization. (A) Genome annotation version variability across published studies, (B) Gene ID format differences between annotation versions requiring reconciliation, (C) Tool version reporting inconsistency.](Figure2_combined_analysis.png)
 
 BRC-Analytics (https://brc-analytics.org) addresses these challenges by enabling researchers to launch best-practice workflows using explicitly versioned reference genomes and tools. Built on Galaxy, BRC-Analytics uses Intergalactic Workflow Commission (IWC) workflows---community-curated, tested, and versioned pipelines maintained at https://iwc.galaxyproject.org [@iwc2024]. IWC workflows are tested with each Galaxy release and installed on all usegalaxy.* servers, ensuring reproducibility. To demonstrate this approach, we re-analyzed RNA-seq data from two publications: (1) Santana et al. (2023) *Science*, identifying SCF1 as *C. auris*-specific adhesin essential for biofilm formation and virulence (PRJNA904261) [@santana2023], and (2) Wang et al. (2024) *Nature Communications*, showing glycan-lectin interactions modulate colonization and fungemia (PRJNA1086003) [@wang2024]. Both used RNA-seq to identify differentially expressed genes. Using BRC-Analytics with reference genome GCA_002759435.3 and IWC workflows, our results correlate with published findings (R^2 > 0.98), validating the platform's reproducibility.
 
@@ -94,11 +93,11 @@ For future RNA-seq studies without known expected results, we recommend validati
 
 ### Literature Survey and Data Source Identification
 
-We conducted literature survey of *C. auris* RNA-seq studies using NCBI Gene Expression Omnibus (GEO) database mining combined with PubMed/Europe PMC searches. Searches performed December 2, 2025, identifying 32 unique RNA-seq studies spanning 2018-2025.
+To quantify *C. auris* sequencing data, we analyzed complete NCBI SRA database for taxonomy ID 498019 (*Candidozyma auris*) accessed December 3, 2025. SRA metadata (Cauris_SRA.csv) contained 27,201 total runs across 237 BioProjects. RNA-seq represents 812 runs (3.0%) and 64 BioProjects (27.0%), with WGS dominating run counts (26,201 runs, 96.3%) but representing 168 BioProjects (70.9%). Average runs per project: RNA-seq 12.7, WGS 156.0.
 
-To quantify proportion of RNA-seq data in *C. auris* research, we analyzed complete NCBI SRA database for taxonomy ID 498019 (*Candidozyma auris*) accessed December 3, 2025. Analysis of 27,201 total runs across 237 BioProjects revealed RNA-seq represents 812 runs (3.0%) and 64 BioProjects (27.0%), with WGS dominating run counts (26,201 runs, 96.3%) but representing 168 BioProjects (70.9%). Average runs per project: RNA-seq 12.7, WGS 156.0.
+To characterize methodology across published RNA-seq studies, we linked all 64 RNA-seq BioProjects to associated publications. For each BioProject, we queried EuropePMC REST API (https://www.ebi.ac.uk/europepmc/webservices/rest/) for papers mentioning BioProject accession in full text, and NCBI E-utilities (elink.fcgi) for direct BioProject-to-PubMed links. This identified 21 papers linked to 20 of 64 BioProjects (31%); 44 BioProjects had no linked publications (unpublished or preprint). For papers with PMC IDs (17/20), we retrieved full-text XML and extracted reference genome information by pattern matching (GenBank/RefSeq accessions, strain names, clade designations) and RNA-seq tools (aligners, quantification tools, DE packages). Results in Supplementary Table 1.
 
-For re-analysis validation, we selected Santana et al. (2023) *Science* (PRJNA904261) [@santana2023] and Wang et al. (2024) *Nature Communications* (PRJNA1086003) [@wang2024]. Survey analysis scripts available at https://github.com/nekrut/claude-projects/tree/main/rnaseq/Cauris_rna_seq_survey.
+For re-analysis validation, we selected Santana et al. (2023) *Science* (PRJNA904261) [@santana2023] and Wang et al. (2024) *Nature Communications* (PRJNA1086003) [@wang2024].
 
 ### WGS Data Contributor Analysis
 
@@ -151,8 +150,32 @@ Validation statistics (Pearson correlation, Spearman correlation, direction agre
 
 ## Supplementary Materials
 
-**Supplementary Table 1**: Complete list of 32 *C. auris* RNA-seq studies with PMIDs, genome versions, tools, and research focus.
-*Source: https://github.com/nekrut/claude-projects/blob/main/rnaseq/Cauris_rna_seq_survey/combined/combined_data.csv*
+**Supplementary Table 1**: RNA-seq methodology across 20 published *C. auris* BioProjects with linked publications (2018-2025).
+
+| BioProject | PMID | Year | Reference Genome | RNA-seq Tools |
+|------------|------|------|------------------|---------------|
+| PRJEB57846 | 39297640 | 2024 | NS | WGS, RNA-seq |
+| PRJNA1012821 | 40468551 | 2025 | B8441, B11220 (CGD) | FastQC, fastp, Bowtie2, HTSeq, DESeq2 |
+| PRJNA1015296 | 38493178 | 2024 | B8441 (GCA_002759435.2) | HiSat2, StringTie, DESeq2, BWA |
+| PRJNA1036037 | 39480072 | 2024 | Clade IV | RNA-seq |
+| PRJNA1086003 | 39455573 | 2024 | B8441 (Clade I) | HISAT2, STAR, DESeq2 |
+| PRJNA1139166 | 40099908 | 2025 | B8441 (GCA_002759435.2) | FastQC, fastp, cutadapt, STAR, featureCounts |
+| PRJNA1208975 | 40530673 | 2025 | Clade I | RNA-seq |
+| PRJNA1232830 | 40066990 | 2025 | Clade I | RNA-seq |
+| PRJNA1291775 | 40863525 | 2025 | GCA_003014415.1, GCA_034640365.1 (Clades III, IV) | FastQC, Trimmomatic, STAR, featureCounts, DESeq2 |
+| PRJNA445471 | 30559369 | 2018 | B8441, B11220, B11243 | Bowtie2, TopHat2, RSEM, Trinity, edgeR |
+| PRJNA477447 | 29997121 | 2018 | B8441 (de novo) | Trinity, HISAT2, Kallisto, DESeq2 |
+| PRJNA682185 | 34630944 | 2021 | B8441 (GCA_002759435.2) | DESeq2, edgeR |
+| PRJNA682422 | 34180774 | 2021 | B8441 (GCA_002759435.2) | FastQC, Trimmomatic, fastp, STAR, featureCounts, DESeq2 |
+| PRJNA735406 | 34354695 | 2021 | B11221 (Clades I-V) | Trimmomatic, HISAT2, Cufflinks, HTSeq, DESeq2 |
+| PRJNA788930 | 35652307 | 2022 | NS | RNA-seq |
+| PRJNA792028 | 36913408 | 2023 | GCA_002759435.2, GCF_002775015.1 | HiSat2, StringTie, DESeq2, BWA |
+| PRJNA801628 | 35473297 | 2022 | B8441, B11221, B11243 (Clades I, III, IV) | HISAT2, featureCounts, edgeR |
+| PRJNA830685 | 36445083 | 2022 | B8441, CBS10913 (Clade II) | FastQC, fastp, BWA, Bowtie2, HTSeq, DESeq2 |
+| PRJNA902676 | 38722168 | 2024 | B11220, B11221 (Clades II, III) | Kallisto, DESeq2 |
+| PRJNA904261 | 37769084 | 2023 | B8441 (Clade I) | RNA-seq |
+
+*NS = Not specified in available text. Data extracted from PMC full text via EuropePMC and NCBI E-utilities APIs. 44 additional BioProjects had no linked publications.*
 
 **Supplementary Table 2**: *C. auris* WGS data contributors by organization category and top sequencing centers.
 
