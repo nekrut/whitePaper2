@@ -10,7 +10,7 @@
 
 *Candidozyma auris* (formerly *Candida auris*; NCBI:txid498019) represents one of most urgent antimicrobial resistance threats facing global health systems. First isolated from external ear canal of Japanese hospital patient in 2009 [@satoh2009], this fungal pathogen has since spread worldwide. CDC classifies *C. auris* as an urgent threat---the first fungal pathogen to receive this designation---due to multidrug resistance (often to all major antifungal classes), healthcare-associated transmission, and 30-60% mortality rates [@cdc2023threat; @cdc2025continuing]. *C. auris* persists on surfaces, colonizes skin, and forms biofilms on medical devices, enabling difficult-to-control nosocomial outbreaks [@cdc2025continuing]. WHO designates *C. auris* as critical-priority fungal pathogen [@who2024fungal], and NIAID has prioritized development of new therapeutics [@niaid2024cauris]. 
 
-The amount of public sequencing data available for *C. auris* is relatively modest (Table 1). 
+Compared to other key human pathogens (such as a SARS-CoV-2 or HIV, for example) the amount of publicly available sequence data for *C. auris* is modest (Table 1). Two categories of projects account for 98% of all data: whole genome sequencing efforts (WGS) and RNA-seq projects.  
 
 **Table 1**: Summary of *C. auris* sequencing data in NCBI SRA (December 2025). BioProject is an NCBI database entry grouping related sequencing runs from a single study. Assay types: WGS = whole genome sequencing; RNA-Seq = transcriptome sequencing; AMPLICON = targeted amplicon sequencing; WGA = whole genome amplification; miRNA-Seq = microRNA sequencing; ChIP-Seq = chromatin immunoprecipitation sequencing; Tn-Seq = transposon insertion sequencing; Targeted-Capture = hybridization capture sequencing; WCS = whole chromosome sequencing; Bisulfite-Seq = DNA methylation sequencing.
 
@@ -100,6 +100,10 @@ To quantify proportion of RNA-seq data in *C. auris* research, we analyzed compl
 
 For re-analysis validation, we selected Santana et al. (2023) *Science* (PRJNA904261) [@santana2023] and Wang et al. (2024) *Nature Communications* (PRJNA1086003) [@wang2024]. Survey analysis scripts available at https://github.com/nekrut/claude-projects/tree/main/rnaseq/Cauris_rna_seq_survey.
 
+### WGS Data Contributor Analysis
+
+To characterize sources of *C. auris* WGS data, we analyzed the "Center Name" field from SRA metadata for all 26,201 WGS runs. Organization names were extracted and aggregated by run count and unique BioProjects. Abbreviated center names were expanded using geographic location metadata (geo_loc_name field) to disambiguate state-level public health laboratories (e.g., "MDH_CSL" mapped to Maryland via "USA:Mid-Atlantic" region; "NSPHL" mapped to Nevada via "USA:Nevada" location). Organizations were categorized into: US State/Local Public Health Laboratories, CDC, International Public Health agencies, Academic/Research institutions, and Other. Results presented in Supplementary Table 2.
+
 ### Reference Genome and Annotation
 
 All analyses used *Candidozyma auris* B8441 reference genome GCA_002759435.3 obtained from NCBI Assembly database. GTF annotation file contained 5,593 genes. This represents most recent annotation version at time of analysis and corresponds to assemblies used in BRC-Analytics platform.
@@ -149,6 +153,41 @@ Validation statistics (Pearson correlation, Spearman correlation, direction agre
 
 **Supplementary Table 1**: Complete list of 32 *C. auris* RNA-seq studies with PMIDs, genome versions, tools, and research focus.
 *Source: https://github.com/nekrut/claude-projects/blob/main/rnaseq/Cauris_rna_seq_survey/combined/combined_data.csv*
+
+**Supplementary Table 2**: *C. auris* WGS data contributors by organization category and top sequencing centers.
+
+*Panel A: Summary by Organization Category*
+
+| Category | Organizations | Runs | % of Total |
+|----------|---------------|------|------------|
+| US State/Local Public Health Labs | 26 | 20,552 | 78.4% |
+| CDC | 2 | 2,626 | 10.0% |
+| Academic/Research | 46 | 1,365 | 5.2% |
+| Other | 41 | 1,345 | 5.1% |
+| International Public Health | 5 | 313 | 1.2% |
+| **TOTAL** | **120** | **26,201** | **100%** |
+
+*Panel B: Top 15 Contributing Organizations*
+
+| Organization | Full Name | Runs | % |
+|--------------|-----------|------|---|
+| UPHL_ID | Utah Public Health Laboratory | 4,447 | 17.0% |
+| NVSPHL | Nevada State Public Health Laboratory | 4,363 | 16.7% |
+| CDC-NCEZID-MDB | CDC Mycotic Diseases Branch | 2,406 | 9.2% |
+| MDH_CSL | Maryland Dept of Health, Central Services Lab | 2,309 | 8.8% |
+| TXDSHS | Texas Dept of State Health Services | 1,487 | 5.7% |
+| MDHHS-GS | Michigan Dept of Health & Human Services | 1,289 | 4.9% |
+| - | Wisconsin State Laboratory of Hygiene | 1,211 | 4.6% |
+| RIPHL | Rhode Island Public Health Laboratory | 1,197 | 4.6% |
+| NSPHL | Nevada State Public Health Laboratory | 1,031 | 3.9% |
+| - | Wadsworth Center (New York) | 705 | 2.7% |
+| - | Minnesota Dept of Health | 688 | 2.6% |
+| OCPHL_CA | Orange County Public Health Lab (California) | 659 | 2.5% |
+| - | Washington State Dept of Health | 583 | 2.2% |
+| UNLV NPM | Univ of Nevada Las Vegas, Pathogen Monitoring | 443 | 1.7% |
+| - | Fudan University | 264 | 1.0% |
+
+*US public health laboratories (state/local + CDC) account for 88.4% of all C. auris WGS data, reflecting outbreak surveillance priorities. Nevada appears twice (NVSPHL + NSPHL = 5,394 runs, 20.6%), indicating major outbreak focus.*
 
 **Supplementary File 1**: Galaxy workflow diagrams for re-analyses.
 *Source: https://github.com/nekrut/claude-projects/tree/main/rnaseq/santana24_PRJNA904261/analysis and https://github.com/nekrut/claude-projects/tree/main/rnaseq/wang24_PRJNA1086003/analysis*
