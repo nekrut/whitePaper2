@@ -152,28 +152,28 @@ Validation statistics (Pearson correlation, Spearman correlation, direction agre
 
 **Supplementary Table 1**: RNA-seq methodology across 20 published *C. auris* BioProjects with linked publications (2018-2025).
 
-| BioProject | PMID | Authors | Year | Reference Genome | RNA-seq Tools |
-|------------|------|---------|------|------------------|---------------|
-| PRJEB57846 | 39297640 | Rhodes J et al. | 2024 | NS | WGS, RNA-seq |
-| PRJNA1012821 | 40468551 | Chauhan A et al. | 2025 | B8441, B11220 (CGD) | FastQC, fastp, Bowtie2, HTSeq, DESeq2 |
-| PRJNA1015296 | 38493178 | Bing J et al. | 2024 | B8441 (GCA_002759435.2) | HiSat2, StringTie, DESeq2, BWA |
-| PRJNA1036037 | 39480072 | Li J et al. | 2024 | Clade IV | RNA-seq |
-| PRJNA1086003 | 39455573 | Wang TW et al. | 2024 | B8441 (Clade I) | HISAT2, STAR, DESeq2 |
-| PRJNA1139166 | 40099908 | Phan-Canh T et al. | 2025 | B8441 (GCA_002759435.2) | FastQC, fastp, cutadapt, STAR, featureCounts |
-| PRJNA1208975 | 40530673 | Yang G et al. | 2025 | Clade I | RNA-seq |
-| PRJNA1232830 | 40066990 | Chauhan M et al. | 2025 | Clade I | RNA-seq |
-| PRJNA1291775 | 40863525 | Vidal-Montiel A et al. | 2025 | GCA_003014415.1, GCA_034640365.1 (Clades III, IV) | FastQC, Trimmomatic, STAR, featureCounts, DESeq2 |
-| PRJNA445471 | 30559369 | Muñoz JF et al. | 2018 | B8441, B11220, B11243 | Bowtie2, TopHat2, RSEM, Trinity, edgeR |
-| PRJNA477447 | 29997121 | Kean R et al. | 2018 | B8441 (de novo) | Trinity, HISAT2, Kallisto, DESeq2 |
-| PRJNA682185 | 34630944 | Zamith-Miranda D et al. | 2021 | B8441 (GCA_002759435.2) | DESeq2, edgeR |
-| PRJNA682422 | 34180774 | Lara-Aguilar V et al. | 2021 | B8441 (GCA_002759435.2) | FastQC, Trimmomatic, fastp, STAR, featureCounts, DESeq2 |
-| PRJNA735406 | 34354695 | Zhou W et al. | 2021 | B11221 (Clades I-V) | Trimmomatic, HISAT2, Cufflinks, HTSeq, DESeq2 |
-| PRJNA788930 | 35652307 | Shivarathri R et al. | 2022 | NS | RNA-seq |
-| PRJNA792028 | 36913408 | Bing J et al. | 2023 | GCA_002759435.2, GCF_002775015.1 | HiSat2, StringTie, DESeq2, BWA |
-| PRJNA801628 | 35473297 | Biermann AR et al. | 2022 | B8441, B11221, B11243 (Clades I, III, IV) | HISAT2, featureCounts, edgeR |
-| PRJNA830685 | 36445083 | Narayanan A et al. | 2022 | B8441, CBS10913 (Clade II) | FastQC, fastp, BWA, Bowtie2, HTSeq, DESeq2 |
-| PRJNA902676 | 38722168 | Yang B et al. | 2024 | B11220, B11221 (Clades II, III) | Kallisto, DESeq2 |
-| PRJNA904261 | 37769084 | Santana DJ et al. | 2023 | B8441 (Clade I) | RNA-seq |
+| BioProject | PMID | Authors | Year | Runs | Reference Genome | RNA-seq Tools |
+|------------|------|---------|------|------|------------------|---------------|
+| PRJEB57846 | 39297640 | Rhodes J et al. | 2024 | 12 | NS | WGS, RNA-seq |
+| PRJNA1012821 | 40468551 | Chauhan A et al. | 2025 | 16 | B8441, B11220 (CGD) | FastQC, fastp, Bowtie2, HTSeq, DESeq2 |
+| PRJNA1015296 | 38493178 | Bing J et al. | 2024 | 141 | B8441 (GCA_002759435.2) | HiSat2, StringTie, DESeq2, BWA |
+| PRJNA1036037 | 39480072 | Li J et al. | 2024 | 22 | Clade IV | RNA-seq |
+| PRJNA1086003 | 39455573 | Wang TW et al. | 2024 | 13 | B8441 (Clade I) | HISAT2, STAR, DESeq2 |
+| PRJNA1139166 | 40099908 | Phan-Canh T et al. | 2025 | 15 | B8441 (GCA_002759435.2) | FastQC, fastp, cutadapt, STAR, featureCounts |
+| PRJNA1208975 | 40530673 | Yang G et al. | 2025 | 9 | Clade I | RNA-seq |
+| PRJNA1232830 | 40066990 | Chauhan M et al. | 2025 | 6 | Clade I | RNA-seq |
+| PRJNA1291775 | 40863525 | Vidal-Montiel A et al. | 2025 | 6 | GCA_003014415.1, GCA_034640365.1 (Clades III, IV) | FastQC, Trimmomatic, STAR, featureCounts, DESeq2 |
+| PRJNA445471 | 30559369 | Muñoz JF et al. | 2018 | 24 | B8441, B11220, B11243 | Bowtie2, TopHat2, RSEM, Trinity, edgeR |
+| PRJNA477447 | 29997121 | Kean R et al. | 2018 | 22 | B8441 (de novo) | Trinity, HISAT2, Kallisto, DESeq2 |
+| PRJNA682185 | 34630944 | Zamith-Miranda D et al. | 2021 | 36 | B8441 (GCA_002759435.2) | DESeq2, edgeR |
+| PRJNA682422 | 34180774 | Lara-Aguilar V et al. | 2021 | 6 | B8441 (GCA_002759435.2) | FastQC, Trimmomatic, fastp, STAR, featureCounts, DESeq2 |
+| PRJNA735406 | 34354695 | Zhou W et al. | 2021 | 6 | B11221 (Clades I-V) | Trimmomatic, HISAT2, Cufflinks, HTSeq, DESeq2 |
+| PRJNA788930 | 35652307 | Shivarathri R et al. | 2022 | 12 | NS | RNA-seq |
+| PRJNA792028 | 36913408 | Bing J et al. | 2023 | 15 | GCA_002759435.2, GCF_002775015.1 | HiSat2, StringTie, DESeq2, BWA |
+| PRJNA801628 | 35473297 | Biermann AR et al. | 2022 | 24 | B8441, B11221, B11243 (Clades I, III, IV) | HISAT2, featureCounts, edgeR |
+| PRJNA830685 | 36445083 | Narayanan A et al. | 2022 | 16 | B8441, CBS10913 (Clade II) | FastQC, fastp, BWA, Bowtie2, HTSeq, DESeq2 |
+| PRJNA902676 | 38722168 | Yang B et al. | 2024 | 40 | B11220, B11221 (Clades II, III) | Kallisto, DESeq2 |
+| PRJNA904261 | 37769084 | Santana DJ et al. | 2023 | 6 | B8441 (Clade I) | RNA-seq |
 
 *NS = Not specified in available text. Data extracted from PMC full text via EuropePMC and NCBI E-utilities APIs. 44 additional BioProjects had no linked publications.*
 
