@@ -948,4 +948,89 @@ Updated figure references in manuscript to use local filenames
 
 ---
 
-*Last updated: December 4, 2025*
+## Phase 15: Manuscript Refinements (December 5, 2025)
+
+### Step 15.1: Replace Supplementary Table 1 with BioProject Survey
+- **Action**: Replaced old Supp Table 1 (32 studies from GEO survey) with consolidated table from BioProject_PAPERS.md
+- **Content**: 20 published BioProjects with PMID, Year, Reference Genome, RNA-seq Tools
+- **Commit**: 3adee49
+
+### Step 15.2: Add Authors Column
+- **Action**: Added first author names to Supp Table 1 (RNA-seq BioProjects)
+- **Method**: Fetched from PubMed E-utilities API for each PMID
+- **Commit**: 640b96f
+
+### Step 15.3: Add Runs Column
+- **Action**: Added SRA run counts per BioProject
+- **Source**: Cauris_SRA.csv analysis
+- **Range**: 6-141 runs per project (443 total across 20 published BioProjects)
+- **Commit**: 99698cb
+
+### Step 15.4: Remove Figure 1, Renumber Figures
+- **Action**: Removed Figure 1 (genome annotation variability figure)
+- **Renumbering**: Figure 2→1 (Santana validation), Figure 3→2 (Wang validation)
+- **Updated**: All text references and captions
+- **Commit**: 85f9f94
+
+### Step 15.5: Swap Supplementary Tables
+- **Action**: Swapped Supp Table 1 and 2 to match text order
+- **New order**:
+  - Supp Table 1 = WGS data contributors (mentioned first in text, line 13)
+  - Supp Table 2 = RNA-seq methodology (mentioned second, line 32)
+- **Updated**: All 4 text references (lines 13, 32, 96, 102)
+- **Commit**: f4f1fa9
+
+### Step 15.6: Add Tool Version Reporting Text
+- **Action**: Added text about incomplete tool version reporting
+- **Location**: Line 44 paragraph on standardization challenges
+- **Content**: Papers cite tools without versions; algorithm changes between releases make reproduction guesswork
+- **Commit**: 03c4838
+
+### Step 15.7: User Edits
+- **Changes made by user**:
+  - Removed "---exactly what BRC-Analytics provides" from paragraph ending
+  - Rewrote last sentence of BRC-Analytics intro paragraph
+  - Renamed section "Obtaining Data from BRC-Analytics" → "From BRC-Analytics to counts"
+  - Removed section divider (---)
+- **Status**: Uncommitted, pending commit
+
+---
+
+## Current Project Status (December 5, 2025)
+
+### Completed
+- [x] Literature survey (32 papers, 2018-2025)
+- [x] SRA analysis (27,201 runs, 237 BioProjects, 64 RNA-seq)
+- [x] BioProject literature survey (20 papers linked to 64 BioProjects)
+- [x] Re-analysis of Santana et al. 2023 (R²=0.9996)
+- [x] Re-analysis of Wang et al. 2024 (r=0.9914-1.0000)
+- [x] Manuscript draft with citations and 2 figures
+- [x] Supplementary tables (WGS contributors, RNA-seq methodology)
+
+### Pending
+- [ ] User to write "From BRC-Analytics to counts" section
+
+### Key Files
+- **MANUSCRIPT.md** - Main manuscript (Pandoc markdown)
+- **MANUSCRIPT.pdf** - Compiled PDF
+- **references.bib** - BibTeX bibliography
+- **BioProject_PAPERS.md** - RNA-seq BioProject survey results
+- **Cauris_SRA.csv** - Complete SRA metadata
+- **STEPS.md** - This file (process documentation)
+- **compile.sh** - PDF compilation script
+
+### Figures
+- Figure 1: Santana et al. validation (R²=0.9996, 0.9895)
+- Figure 2: Wang et al. validation (r=0.9914, 1.0000)
+
+### Supplementary Tables
+- Supp Table 1: WGS data contributors (120 orgs, 26,201 runs)
+- Supp Table 2: RNA-seq methodology (20 BioProjects with authors, runs, genomes, tools)
+
+### Repository
+- **URL**: https://github.com/nekrut/whitePaper2
+- **Branch**: main
+
+---
+
+*Last updated: December 5, 2025*
