@@ -66,6 +66,25 @@ case $OUTPUT_FORMAT in
             echo -e "${RED}✗ PDF compilation failed${NC}"
             exit 1
         fi
+
+        # Compile WF-LAUNCH.md if it exists
+        if [ -f "WF-LAUNCH.md" ]; then
+            echo -e "${BLUE}Compiling WF-LAUNCH.md to PDF...${NC}"
+            pandoc WF-LAUNCH.md \
+                --from=markdown \
+                --to=pdf \
+                --output=WF-LAUNCH.pdf \
+                --pdf-engine=pdflatex \
+                --variable=geometry:margin=1in \
+                --variable=fontsize:11pt \
+                --variable=documentclass:article
+
+            if [ $? -eq 0 ]; then
+                echo -e "${GREEN}✓ PDF created: WF-LAUNCH.pdf${NC}"
+            else
+                echo -e "${RED}✗ WF-LAUNCH.pdf compilation failed${NC}"
+            fi
+        fi
         ;;
 
     docx)
