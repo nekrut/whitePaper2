@@ -1,4 +1,4 @@
-# Session Context (December 8, 2025)
+# Session Context (December 9, 2025)
 
 ## Current State
 
@@ -9,6 +9,19 @@ Manuscript in active development with significant Results section expansion unde
 - Updated compile.sh to build both MANUSCRIPT.pdf and WF-LAUNCH.pdf
 - Sorted Supp Table 2 by Year (ascending), Runs (descending)
 - Added paragraph justifying Wang/Santana as representative studies
+- Created harmonized SRA sample table (ready to insert):
+
+## Harmonized Sample Table (ready to use)
+
+| Study | Condition | SRR Accessions | Description |
+|-------|-----------|----------------|-------------|
+| Santana et al. | AR0382_WT | SRR22376031, SRR22376032 | Wild-type reference (n=2) |
+| | AR0387_WT | SRR22376029, SRR22376030 | Poorly adhesive strain (n=2) |
+| | tnSWI1 | SRR22376027, SRR22376028 | SWI1 mutant (n=2) |
+| Wang et al. | AR0382_in_vitro | SRR28790270, SRR28790272, SRR28790274 | In vitro culture (n=3) |
+| | AR0387_in_vitro | SRR28790276, SRR28790278, SRR28790280 | In vitro culture (n=3) |
+| | AR0382_in_vivo | SRR28791430, SRR28791431, SRR28791432 | In vivo infection (n=3) |
+| | AR0387_in_vivo | SRR28791433, SRR28791434, SRR28791437, SRR28791438 | In vivo infection (n=4) |
 
 ## Manuscript Status
 
