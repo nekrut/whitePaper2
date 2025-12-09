@@ -18,22 +18,19 @@ Both comparisons yielded excellent validation metrics. For the tnSWI1 comparison
 
 SCF1, the central finding of the Santana study, emerged as the most strongly downregulated gene in both comparisons. The published analysis reported SCF1 (B9J08_001458) with log2 fold changes of -6.68 (Fig 1D) and -7.25 (Fig S5A). Our reanalysis identified the corresponding gene (B9J08_03708) with log2 fold changes of -6.82 and -7.35, respectively, confirming the paper's key finding with minimal deviation.
 
-![Santana Fig 1D](validation_figures/santana_fig1d_comparison.png)
-*Figure S1: Validation of Santana et al. tnSWI1 vs AR0382 comparison.*
-
-![Santana Fig S5A](validation_figures/santana_figs5a_comparison.png)
-*Figure S2: Validation of Santana et al. AR0387 vs AR0382 comparison.*
+![Santana Validation](validation_figures/santana_combined_sidebyside.png)
+*Figure S1: Validation of Santana et al. DESeq2 results. Left: tnSWI1 vs AR0382 comparison (Fig 1D). Right: AR0387 vs AR0382 comparison (Fig S5A). Red dashed line indicates perfect correlation (y=x).*
 
 ## Wang et al. (2024) Analysis
 
 Wang et al. published "Functional redundancy in *Candida auris* cell surface adhesins crucial for cell-cell interaction and aggregation" in *Nature Communications* (BioProject [PRJNA1086003](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1086003)). This study compared two strains with distinct aggregation phenotypes: AR0382 (B11109), a highly aggregative biofilm-forming strain, and AR0387 (B8441), a non-aggregative strain. RNA-seq was performed under two conditions: in vitro biofilm growth (3 replicates per strain) and in vivo colonization of mouse jugular vein catheters (3 replicates for AR0382, 4 for AR0387).
 
-The published analysis reported 76 differentially expressed genes (DEGs) in the in vitro comparison and 259 DEGs in the in vivo comparison, using thresholds of FDR < 0.01 and |log2FC| ≥ 1.0. Our reanalysis achieved perfect correlation with the published results. For the in vitro condition, we identified 73 DEGs with Pearson r = 1.0000 and 100% direction agreement across 75 matched genes. The in vivo analysis reproduced all 259 DEGs with identical correlation metrics.
+The published analysis reported 76 differentially expressed genes (DEGs) in the in vitro comparison and 259 DEGs in the in vivo comparison, using thresholds of FDR < 0.01 and |log2FC| >= 1.0. Our reanalysis achieved perfect correlation with the published results. For the in vitro condition, we identified 73 DEGs with Pearson r = 1.0000 and 100% direction agreement across 75 matched genes. The in vivo analysis reproduced all 259 DEGs with identical correlation metrics.
 
 The key adhesin genes highlighted in the paper showed excellent concordance. SCF1 exhibited log2 fold changes of 8.61 (paper) versus 8.67 (our analysis) in vitro, and 4.47 versus 4.53 in vivo. ALS4112 showed similarly close agreement: 5.07 versus 5.08 in vitro, and 2.56 versus 2.56 in vivo. Other adhesin family members (IFF4109), virulence-associated genes (SAP7), and drug resistance genes (MDR1) all matched within 0.01 log2 fold change units.
 
 ![Wang Validation](validation_figures/wang_validation_scatter.png)
-*Figure S3: Validation of Wang et al. DESeq2 results. Left: In vitro biofilm comparison (n=75 genes). Right: In vivo mouse catheter model (n=259 genes). Red dashed line indicates perfect correlation (y=x). Key adhesin genes SCF1 and ALS4112 are labeled.*
+*Figure S2: Validation of Wang et al. DESeq2 results. Left: In vitro biofilm comparison (n=75 genes). Right: In vivo mouse catheter model (n=259 genes). Red dashed line indicates perfect correlation (y=x). Key adhesin genes SCF1 and ALS4112 are labeled.*
 
 ## Summary and Biological Convergence
 
@@ -41,7 +38,7 @@ Both studies achieved excellent validation status, with Santana et al. showing R
 
 The biological convergence between studies strengthens confidence in the key findings. Santana et al. demonstrated that SCF1 is essential for surface colonization, with its disruption causing greater than 6-fold reduction in expression. Wang et al. independently showed that SCF1 is highly upregulated (greater than 8-fold in vitro) in aggregative strains compared to non-aggregative strains. This convergence across independent studies, different experimental designs, and complementary biological questions establishes SCF1 as a validated virulence factor and potential therapeutic target for *C. auris* infections.
 
-From a technical perspective, this validation demonstrates that different genome annotation versions can be effectively mapped using LFC correlation, enabling retrospective validation of studies that used older reference genomes. Both studies employed consistent statistical thresholds (FDR < 0.01, |log2FC| ≥ 1.0), facilitating direct comparison of results.
+From a technical perspective, this validation demonstrates that different genome annotation versions can be effectively mapped using LFC correlation, enabling retrospective validation of studies that used older reference genomes. Both studies employed consistent statistical thresholds (FDR < 0.01, |log2FC| >= 1.0), facilitating direct comparison of results.
 
 ---
 
