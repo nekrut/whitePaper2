@@ -45,7 +45,7 @@ Despite tool convergence, reference genome usage remains inconsistent. While 60%
 
 In this manuscript we demonstrate how a new environment for the analysis of pathogen, host, and vector data--- BRC-Analytics (https://brc-analytics.org)---can be used for standardizing and simplifying RNAseq analyses using two recent *C. auris* studies as an example. Our approach makes cutting edge tools and powerful computational infrastructure freely accessible to any biologist. Importantly, the combination or BRC-analytics, the Galaxy platform, and large language models (LLM) tools described here automatically keeps provenance and ensures analytical reproducibility: any analysis conducted within our system can be easily understood and replicated by others.  
 
-## Results and Discussion
+## Results
 
 ### Two representative studies
 
@@ -104,85 +104,28 @@ The study compared three strains (Table 3): AR0382_WT, a wild-type highly adhesi
 ![Santana Validation](validation_figures/santana_combined_sidebyside.png)
 *Figure S1: Validation of Santana et al. DESeq2 results. Left: tnSWI1 vs AR0382 comparison (Fig 1D). Right: AR0387 vs AR0382 comparison (Fig S5A). Red dashed line indicates perfect correlation (y=x).*
 
-## Comparison with Wang et al. (2024) results
+### Comparison with Wang et al. (2024) results
 
 This study compared two strains with distinct aggregation phenotypes: AR0382 (B11109), a highly aggregative biofilm-forming strain, and AR0387 (B8441), a non-aggregative strain. RNA-seq was performed under two conditions: in vitro biofilm growth (3 replicates per strain) and in vivo colonization of mouse jugular vein catheters (3 replicates for AR0382, 4 for AR0387). The authors reported 76 differentially expressed genes (DEGs) in the in vitro comparison and 259 DEGs in the in vivo comparison, using thresholds of FDR < 0.01 and |LFC| >= 1.0. Our reanalysis achieved perfect correlation with the published results. For the in vitro condition, we identified 73 DEGs with Pearson r = 1.0000 and 100% direction agreement across 75 matched genes. The in vivo analysis reproduced all 259 DEGs with identical correlation metrics. The key adhesin genes highlighted in the paper showed excellent concordance. SCF1 exhibited LFC of 8.61 (paper) versus 8.67 (our analysis) in vitro, and 4.47 versus 4.53 in vivo. ALS4112 showed similarly close agreement: 5.07 versus 5.08 in vitro, and 2.56 versus 2.56 in vivo. Other adhesin family members (IFF4109), virulence-associated genes (SAP7), and drug resistance genes (MDR1) all matched within 0.01 LFC units.
 
 ![Wang Validation](validation_figures/wang_validation_scatter.png)
 *Figure S2: Validation of Wang et al. DESeq2 results. Left: In vitro biofilm comparison (n=75 genes). Right: In vivo mouse catheter model (n=259 genes). Red dashed line indicates perfect correlation (y=x). Key adhesin genes SCF1 and ALS4112 are labeled.*
 
-## Summary and Biological Convergence
+## Discussion
 
-Both studies achieved excellent validation status, with Santana et al. showing R² > 0.97 across both comparisons and Wang et al. achieving perfect correlation (r = 1.00) in both conditions. These results demonstrate that Galaxy-based reanalysis using standard workflows produces results equivalent to published analyses, and that differential expression patterns are highly reproducible when using the same statistical methods and significance thresholds. From a technical perspective, this validation demonstrates that different genome annotation versions can be effectively mapped using LFC correlation, enabling retrospective validation of studies that used older reference genomes. Both studies employed consistent statistical thresholds (FDR < 0.01, |log2FC| >= 1.0), facilitating direct comparison of results.
+### Toward standardization of fungal genomics
 
----
+Both studies achieved excellent validation status, with Santana et al. showing R² > 0.97 across both comparisons and Wang et al. achieving perfect correlation (r = 1.00) in both conditions. These results demonstrate that Galaxy-based reanalysis using standard workflows produces results equivalent to published analyses, and that differential expression patterns are highly reproducible when using the same statistical methods and significance thresholds. From a technical perspective, this validation demonstrates that different genome annotation versions can be effectively mapped using LFC correlation, enabling retrospective validation of studies that used older reference genomes. Both studies employed consistent statistical thresholds (FDR < 0.01, LFC >= 1.0), facilitating direct comparison of results.
 
-*Galaxy histories: [PRJNA904261_Perm](https://usegalaxy.org/u/cartman/h/prjna904261-perm), [PRJNA1086003_Perm](https://usegalaxy.org/u/cartman/h/prjna1086003-perm)*
+### Importance of LLMs and their responsible use
 
+For reproducibility, LLM-assisted analyses should be conducted through agentic coding tools such as Claude Code or Gemini Code Assist rather than chat-based interfaces. These tools automatically track all generated artifacts---scripts, intermediate files, and analysis outputs---within version-controlled repositories (e.g., GitHub), creating a complete audit trail. While this workflow may currently seem complex for bench biologists unfamiliar with command-line interfaces and version control, it represents the future of computational biology. The interfaces will evolve: emerging tools like Claude Code Web promise to deliver agentic capabilities through browser-based environments, lowering the barrier to entry while maintaining full provenance tracking. As these tools mature, the combination of natural language interaction and automatic versioning will make reproducible AI-assisted analysis accessible to researchers regardless of their computational background.
 
+Critically, all results produced with agentic AI tools require independent validation. In this study, we had the advantage of known expected outcomes---published results against which to benchmark our AI-assisted reanalysis. This "ground truth" allowed us to confirm that the AI-directed workflow produced biologically accurate results. However, for novel research where expected outcomes are unknown, researchers must exercise heightened scrutiny. AI agents can confidently produce plausible but incorrect interpretations, and without validation benchmarks, such errors may go undetected. We recommend orthogonal validation approaches: qRT-PCR confirmation of key findings, biological replication, functional studies, and cross-referencing with independent datasets. The provenance tracking enabled by agentic tools becomes especially valuable here---complete audit trails allow retrospective verification when questions arise about specific analytical decisions.
 
+### Future goals
 
-Methods/Results Summary for Paper
-
-  We re-analyzed the RNA-seq data from Santana et al. (2023) using a standardized best-practices pipeline on the
-  Galaxy platform with the latest Candida auris genome assembly (GCA_002759435.3). Our differential expression
-  analysis using DESeq2 identified similar patterns of gene regulation in both comparisons: tnSWI1 mutant versus
-  wild-type AR0382 (corresponding to Figure 1D) and AR0387 versus AR0382 (corresponding to Figure S5A). However,
-  direct comparison of results was complicated by the use of different genome annotation versions—the original study
-  used an older annotation with six-digit gene identifiers (e.g., B9J08_001458) while our analysis employed a newer
-  annotation with five-digit identifiers (e.g., B9J08_03708).
-
-  To reconcile gene identities between annotation versions, we developed a log2 fold-change (LFC) correlation mapping
-  approach. This strategy leverages the fact that identical genes should exhibit nearly identical expression changes
-  when analyzed from the same underlying sequencing data, regardless of their assigned identifiers. For each
-  significantly differentially expressed gene in the published results, we identified the corresponding gene in our
-  analysis by matching LFC values within a tolerance threshold. This approach successfully mapped 1,186 genes for the
-  tnSWI1 comparison and 1,557 genes for the AR0387 comparison.
-
-  The validation demonstrates excellent concordance between our re-analysis and the published results (Figure 1). For
-  the tnSWI1 comparison, we observed R² = 0.995 with 99.7% directional agreement; for the AR0387 comparison, R² =
-  0.977 with 100% directional agreement. Critically, SCF1—the key gene identified in the original study as the most
-  strongly downregulated in both comparisons—was correctly mapped (B9J08_001458 → B9J08_03708) with highly concordant
-  fold-changes (paper: -6.68/-7.25; our analysis: -6.82/-7.35 for tnSWI1/AR0387, respectively). These results validate
-   both our RNA-seq analysis pipeline and the LFC-based mapping strategy as an effective approach for comparing
-  differential expression results across genome annotation versions when the underlying experimental data are
-  identical.
-
-
-
-
-
-### Representative studies
-
-To demonstrate the utility of BRC-analytics in analysis of fungal genomic data we selected two recent studies by 
-
-#### Santana et al. (2023): SCF1 Adhesin Study (PRJNA904261)
-
-Santana et al. compared three *C. auris* Clade I strains to identify transcriptional basis for adhesion differences: AR0382 (wild-type, highly adhesive clinical isolate), AR0387 (poorly adhesive clinical isolate), and AR0382_tnSWI1 (SWI1 transposon mutant with disrupted adhesion). BioProject PRJNA904261 contains RNA-seq data for these three conditions with 2 biological replicates each (6 samples total). To identify which SRA accessions corresponded to which experimental conditions, we examined sample metadata and matched naming patterns. Galaxy history contained featureCounts output (Collection #211) with 6 samples that we organized into condition-specific collections using sample name tags: Collection #363 (AR0382, n=2), Collection #378 (AR0387, n=2), and Collection #381 (tnSWI1, n=2). We configured DESeq2 to perform two differential expression comparisons matching figures in published paper: (1) AR0382 vs tnSWI1 (replicating Figure 1D), and (2) AR0382 vs AR0387 (replicating Figure S5A). This organization allowed direct comparison of our DESeq2 results to published differential expression data to assess reproducibility.
-
-#### Wang et al. (2024): Glycan-Lectin Study (PRJNA1086003)
-
-Wang et al. compared two *C. auris* strains with contrasting biofilm phenotypes: AR0382 (CDC B11109, aggregative, high biofilm formation) vs AR0387 (CDC B8441, non-aggregative, low biofilm formation). Study included both *in vitro* cultures and *in vivo* infection samples. BioProject PRJNA1086003 contains 13 RNA-seq samples: 6 *in vitro* (AR0382: SRR28102285-287, n=3; AR0387: SRR28102291-293, n=3) and 7 *in vivo* (AR0382: SRR28102288-290, n=3; AR0387: SRR28102294-297, n=4). We used Galaxy's filter collection tool to split complete counts table (Collection #15, 13 samples) into four condition-specific collections based on sample metadata: Counts_AR0382_in_vitro (#58, n=3), Counts_AR0387_in_vitro (#66, n=3), Counts_AR0382_in_vivo (#74, n=3), and Counts_AR0387_in_vivo (#84, n=4). We then performed two separate DESeq2 comparisons (AR0382 vs AR0387) for *in vitro* and *in vivo* conditions, with factor="strain", using FDR < 0.01 and |log2FC| >= 1 thresholds consistent with published analysis. This structure allowed us to validate both experimental conditions independently.
-
-### DESeq2 Analysis and Gene Annotation Reconciliation
-
-Both re-analyses successfully identified differentially expressed genes matching published results, but revealed critical challenge: genome annotation version differences. Published papers used older *C. auris* B8441 annotations with 6-digit gene ID suffixes (e.g., B9J08_001458 for SCF1), while our BRC-Analytics workflows used current annotation (GCA_002759435.3) with 5-digit suffixes (e.g., B9J08_03708). This prevented direct gene ID matching. We resolved this by developing log2-fold-change (LFC)-based correlation mapping: genes with identical expression patterns produce nearly identical fold changes regardless of annotation version, enabling unambiguous mapping.
-
-For Santana et al. data, we achieved **exceptional reproducibility**: AR0382 vs tnSWI1 comparison yielded 203 mapped DEGs with Pearson R^2=0.9996, Spearman R=1.0000, 100% direction agreement, and mean LFC difference of only 0.012. AR0382 vs AR0387 comparison yielded 166 mapped DEGs with Pearson R^2=0.9895, Spearman R=0.9999, 100% direction agreement, and mean LFC difference of 0.022. Critically, we confirmed key finding: SCF1 (B9J08_001458 -> B9J08_03708) was most strongly downregulated gene in adhesion-deficient strains, with LFC values matching published results within 0.1 (Paper: -6.68 and -7.25; Ours: -6.82 and -7.35) (Figure 1).
-
-![**Figure 1**: Validation of Santana et al. (2023) re-analysis. (A) Scatter plot of log2FC values for 203 mapped DEGs (AR0382 vs tnSWI1), Pearson R^2=0.9996. (B) Scatter plot of log2FC values for 166 mapped DEGs (AR0382 vs AR0387), Pearson R^2=0.9895. (C) SCF1 gene expression across conditions showing consistent downregulation in adhesion-deficient strains.](Figure3_santana_validation.png)
-
-For Wang et al. data, we similarly achieved **near-perfect correlation**: *in vitro* comparison identified 73 DEGs vs 76 in paper (Pearson r=0.9914, 100% direction agreement), and *in vivo* comparison identified ~195 DEGs vs 259 in paper (Pearson r=1.0000, 100% direction agreement). Key adhesion genes were validated with LFC differences < 0.1: SCF1 (Paper: 8.61, Ours: 8.67), ALS4112 (Paper: 5.07, Ours: 5.08), SAP7 (Paper: 2.12, Ours: 2.12), and drug efflux genes MDR1 (Paper: -4.03, Ours: -4.04) and MGD1 (Paper: -4.27, Ours: -4.28) (Figure 2). These results demonstrate that different genome annotation versions do not prevent biological reproducibility when appropriate mapping strategies are applied, and that BRC-Analytics workflows using current reference annotations produce results fully consistent with published findings.
-
-![**Figure 2**: Validation of Wang et al. (2024) re-analysis. (A) Scatter plot of *in vitro* DEG log2FC values (73 genes, Pearson r=0.9914). (B) Scatter plot of *in vivo* DEG log2FC values (~195 genes, Pearson r=1.0000). (C) Heatmap of key adhesion and drug efflux genes showing LFC validation (all differences < 0.1).](Figure4_wang_validation.png)
-
-### Implications, Limitations, and Future Directions
-
-BRC-Analytics provides a robust platform for reproducible fungal RNA-seq analysis through standardized reference genomes, versioned IWC workflows, and explicit tool parameters. Correlation between our re-analyses and published results (R^2 > 0.98) validates both technical reproducibility and biological consistency. Importantly, this validation study has "ground truth"---published papers with known findings---allowing direct assessment of AI-assisted analysis accuracy. For *de novo* experiments where results are unknown, researchers must exercise caution with AI interpretation, as no benchmark exists.
-
-Several limitations merit consideration. First, genome annotation version discrepancies remain a challenge; while LFC-based mapping reconciled gene identities, this adds complexity. The *C. auris* community would benefit from consensus on reference genome version, similar to model organisms. Second, our analysis validated only DESeq2 differential expression---one step in the broader pipeline (QC, alignment, quantification). Future work should validate complete end-to-end workflows. Third, both studies used simple pairwise comparisons; complex designs (time series, multi-factor) warrant additional validation.
-
-For future RNA-seq studies without known expected results, we recommend validation strategies beyond AI-assisted interpretation: (1) **Orthogonal validation**: Confirm key DEGs using qRT-PCR or targeted sequencing [@zenodo2020rnaseq]. (2) **Biological replication**: Include sufficient replicates (n >= 3) for statistical power [@santana2023; @wang2024]. (3) **Functional validation**: Test causality via genetic or pharmacological perturbations [@santana2023; @wang2024]. (4) **Cross-dataset validation**: Compare to existing studies---our survey identified 32 potential benchmarks. (5) **Multi-omics integration**: Combine RNA-seq with proteomics or metabolomics to validate transcriptional changes [@zenodo2020rnaseq; @pmc2024threat]. Combining standardized BRC-Analytics workflows with these approaches maximizes confidence while maintaining reproducibility.
+We envision tighter integration between BRC-Analytics, Galaxy, and agentic AI systems. Currently, our workflow requires manual coordination: launching analyses through BRC-Analytics, managing data in Galaxy histories, and directing AI agents via API calls. Future development will embed AI agents directly within the Galaxy interface, enabling researchers to describe analyses in natural language while the system automatically selects appropriate workflows, configures parameters, and interprets results. This integration will transform BRC-Analytics from a workflow launcher into an intelligent research assistant that guides users through complex multi-omics analyses, suggests appropriate statistical approaches, and flags potential issues---all while maintaining the rigorous provenance tracking that Galaxy provides.
 
 ---
 
