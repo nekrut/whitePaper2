@@ -8,8 +8,9 @@ This repository contains the manuscript, data, and supporting materials for a wh
 
 **Key findings:**
 - Re-analyzed RNA-seq data from two high-impact publications (Santana et al. 2023 *Science*, Wang et al. 2024 *Nature Communications*)
-- Achieved near-perfect correlation with published results (R^2 > 0.98)
+- Achieved strong correlation with published results using official NCBI gene ID mapping (Santana R² = 0.89-0.94, Wang R² = 0.98-0.9998)
 - Demonstrated that standardized workflows with versioned references enable reproducible analyses
+- Documented an AI mistake: LFC correlation mapping appeared successful (R² = 0.9996) but was only 1% accurate—corrected using NCBI `old_locus_tag` mapping validated by protein sequence identity
 
 ## Repository Structure
 
@@ -58,15 +59,15 @@ whitePaper2/
 
 ### Abstract
 
-*Candidozyma auris* has emerged as a critical global health threat due to multidrug resistance and healthcare-associated transmission. We demonstrate the utility of BRC-Analytics for launching reproducible, best-practice RNA-seq workflows on fungal pathogen data. By re-analyzing data from two recent publications using a defined reference genome (GCA_002759435.3) and IWC workflows, we achieved near-perfect correlation (R^2 > 0.98) with published results.
+*Candidozyma auris* has emerged as a critical global health threat due to multidrug resistance and healthcare-associated transmission. We demonstrate the utility of BRC-Analytics combined with agentic AI (Claude Code Agent) for reproducible RNA-seq analysis. By re-analyzing data from two recent publications using a defined reference genome (GCA_002759435.3), IWC workflows, and official NCBI gene ID mapping, we achieved strong correlation with published results. We also document a cautionary tale: an AI-proposed LFC correlation mapping method appeared successful (R² = 0.9996) but was only 1% accurate, highlighting the critical importance of validating AI outputs against authoritative sources.
 
 ### Key Statistics
 
-- **Literature survey**: 32 published *C. auris* RNA-seq studies (2018-2025)
+- **Literature survey**: 20 published *C. auris* RNA-seq studies with linked BioProjects (2018-2025)
 - **SRA analysis**: 27,201 runs across 237 BioProjects; 27% of projects are RNA-seq
-- **Validation**:
-  - Santana et al.: R^2 = 0.9996 (203 DEGs mapped)
-  - Wang et al.: r = 0.9914-1.0000 (73-195 DEGs mapped)
+- **Validation** (using NCBI official `old_locus_tag` mapping):
+  - Santana et al.: R² = 0.89-0.94 (165-203 DEGs mapped), 97-99% direction agreement
+  - Wang et al.: R² = 0.98-0.9998 (76-259 DEGs mapped), 100% direction agreement
 
 ## Data Sources
 
@@ -125,11 +126,12 @@ See [CITATION_GUIDE.md](CITATION_GUIDE.md) for full documentation.
 
 ## Methods Summary
 
-1. **Literature Survey**: NCBI GEO + PubMed/Europe PMC searches identified 32 RNA-seq studies
+1. **Literature Survey**: NCBI GEO + PubMed/Europe PMC searches identified 20 RNA-seq studies with linked BioProjects
 2. **SRA Analysis**: Analyzed 27,201 runs across 237 BioProjects for *C. auris* (NCBI:txid498019)
 3. **Reference Genome**: *C. auris* B8441 GCA_002759435.3 (5,593 genes)
 4. **Pipeline**: FastQC -> fastp -> STAR -> featureCounts -> DESeq2 (IWC workflows)
-5. **Validation**: LFC-based correlation mapping to reconcile annotation versions
+5. **Gene ID Mapping**: Official NCBI `old_locus_tag` attribute to reconcile annotation versions (v2 → v3)
+6. **Validation**: Protein sequence identity (100% match) confirms correct gene correspondence
 
 ## Status
 
