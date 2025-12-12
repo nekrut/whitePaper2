@@ -9,7 +9,7 @@ header-includes:
 
 # Standardizing RNA-seq Analysis of Fungal Pathogens Using BRC-Analytics and Agentic AI: A *Candidozyma auris* Case Study
 
-Anton Nekrutenko^1^, Danielle Callan^2^, Marius Van Den Beek^1^, Dannon Baker^3^, David Rogers^4^, Aysam Guerler^3^, John Chilton^1^, Hiram Clawson^5^, Scott Cain^1^, Teresa O'Meara^6^, Kelsey Beavers^7^, Jeremy Goecks^9^, Michael Schatz^3^, Maximilian Haeussler^5^, Bjorn Gruning^8^, and Sergei Kosakovsky Pond^2^
+Anton Nekrutenko^1^, Danielle Callan^2^, Marius Van Den Beek^1^, Dannon Baker^3^, David Rogers^4^, Aysam Guerler^3^, John Chilton^1^, Hiram Clawson^5^, Scott Cain^1^, Teresa O'Meara^6^, Kelsey Beavers^7^, Michael Schatz^3^, Maximilian Haeussler^5^, Bjorn Gruning^8^, Jeremy Goecks^9^, and Sergei Kosakovsky Pond^2^
 
 ^1^ Dept. of Biochemistry and Molecular Biology, The Pennsylvania State University, University Park, PA, USA
 
