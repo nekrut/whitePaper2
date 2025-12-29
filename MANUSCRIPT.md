@@ -82,6 +82,13 @@ Here, we demonstrate how a new environment for the analysis of pathogen, host, a
 
 BRC-Analytics (https://brc-analytics.org) is a browser-based analysis environment designed to make comprehensive and reproducible genomic analyses of infectious diseases accessible to everyone. Developed under the NIAID-funded Bioinformatics Resource Centers (BRCs) program, it leverages the Galaxy platform to enable users to begin with raw sequencing reads and achieve publication-ready results without the need for local software installations or manual data transfers between tools. The platform integrates authoritative genomic data from multiple sources: NCBI Datasets provides reference genomes (currently 5,060 assemblies for 1,920 pathogen, host, and vector taxa, with continuous expansion planned), UCSC Genome Browser supplies genome annotations including gene coordinates and regulatory elements, and EBI ENA facilitates access to public sequence read archive data through local caching for quick searches. BRC-Analytics pairs these data sources with community-curated best-practice analysis workflows covering essential steps like quality control, read mapping, variant identification, and annotation. Galaxy serves not only for launching and running workflows but also as an environment for interpretive analyses through interactive tools like Jupyter. The platform utilizes free cloud-based computation, versioned workflows, and interactive visualizations to create a seamless, reproducible interface. The substantial computational and storage resources required are provided by ACCESS-CI infrastructure in the US, with BRC-Analytics and Galaxy hosted on servers at the Texas Advanced Computing Center (TACC). This approach unifies data and analytical capabilities, making advanced pathogen genomics available to a wider research community.
 
+### Analysis flow 
+
+Generative AI tools based on large language models steadily permeate all aspects 
+
+![Analysis Flow](flow.png)
+*Figure 1: Analysis flow in this manuscript (A) and with integrated AI agents that will be available in future releases.*
+
 ### Two representative studies
 
 The *Introduction* section above described a survey of all publicly available *C. auris* sequence data with a particular focus on RNA-seq studies and associated publications (Supp. Table 2). From these publications we selected two studies. The first, Santana et al. (2023), identified *SCF1* gene as *C. auris*-specific adhesin essential for biofilm formation and virulence (PRJNA904261) [@santana2023]. The second, Wang et al. (2024), showed that glycan-lectin interactions modulate colonization and fungemia (PRJNA1086003) [@wang2024]. These two studies are good representatives of *C. auris* RNA-seq methodology. Both use B8441 (Clade I) reference genome, which dominates the field (14/20 published studies). Wang employs `HISAT2`/`STAR` + `DESeq2`, the most common pipeline (`DESeq2` in 13/20, `HISAT2` in 6/20 studies). Sample sizes of 13 and 6 runs bracket the typical range (median ~13-15, with 5 studies having exactly 6 runs). As 2023-2024 publications, they reflect current practices unlike older studies using outdated tools (`TopHat2`, `Cufflinks`). Both study adhesion/biofilm phenotypes, the dominant research theme alongside drug resistance. 
@@ -111,7 +118,7 @@ In the above prompt we specifically mentioned "Collection #244"---a Galaxy artif
 *Go ahead and execute the plan. Once you are done please add name tags to dataset collection containing data we need to used for DeSeq2 analysis. E.g., label collections with names tags such as AR0382_WT, AR0387_WT, and tnSWI1.*
 
 ![Collection Split](collectionSplit.png)
-*Figure 1: CCA splits collection containing counts into three collections corresponding to three different strains (conditions).*
+*Figure 2: CCA splits collection containing counts into three collections corresponding to three different strains (conditions).*
 
 This step generated three dataset collections in Galaxy history corresponding to the three conditions described in the paper: AR0382_WT, AR0387_WT, and tnSWI1 (Fig. 1). We then repeated this procedure in a separate Galaxy history containing read count derived from Wang et al. 2024 [@wang2024].
 
@@ -140,14 +147,14 @@ A technical challenge arose from differences in genome annotation versions. Both
 The study compared three strains (Table 3): AR0382_WT, a wild-type highly adhesive Clade I isolate; AR0387_WT, a poorly adhesive clinical isolate; and tnSWI1, a transposon-insertion mutant of AR0382 with disrupted SWI1, a chromatin remodeling factor. Each strain was sequenced in duplicate. The first comparison (Santana et al. Fig. 1D) examined the tnSWI1 mutant versus wild-type AR0382 to identify genes affected by SWI1 disruption. The second comparison (Santana et al. Fig. S5A) contrasted AR0387 against AR0382 to characterize expression differences between adhesive and non-adhesive strains. Both comparisons yielded strong validation metrics. For the first (tnSWI1/AR0382_WT) comparison, we successfully mapped 203 differentially expressed genes and obtained R² = 0.94 with 99% direction agreement. The second comparison (AR0382_WT/AR0387_WT) mapped 165 genes with R² = 0.89 and 97% direction agreement. SCF1, the central finding of the Santana study, was the most strongly downregulated gene in both comparisons. The published analysis reported SCF1 (B9J08_001458) with log2 fold changes of -6.68 (Santana et al. Fig. 1D) and -7.25 (Santana et al. Fig. S5A). Our reanalysis identified the corresponding gene (B9J08_03708) with log2 fold changes of -6.82 and -7.35, respectively, confirming the paper's key finding with minimal deviation.
 
 ![Santana Validation](validation_figures/santana_combined_sidebyside.png)
-*Figure 2: Validation of Santana et al. `DESeq2` results using official NCBI gene ID mapping. Left: tnSWI1 vs AR0382 comparison (n=203 genes, R²=0.94). Right: AR0387 vs AR0382 comparison (n=165 genes, R²=0.89). Red dashed line indicates perfect correlation (y=x). Key gene SCF1 is labeled.*
+*Figure 3: Validation of Santana et al. `DESeq2` results using official NCBI gene ID mapping. Left: tnSWI1 vs AR0382 comparison (n=203 genes, R²=0.94). Right: AR0387 vs AR0382 comparison (n=165 genes, R²=0.89). Red dashed line indicates perfect correlation (y=x). Key gene SCF1 is labeled.*
 
 ### Comparison with Wang et al. (2024) results
 
 This study compared two strains with distinct aggregation phenotypes: AR0382 (B11109), a highly aggregative biofilm-forming strain, and AR0387 (B8441), a non-aggregative strain. RNA-seq was performed under two conditions: in vitro biofilm growth (3 replicates per strain) and in vivo colonization of mouse jugular vein catheters (3 replicates for AR0382, 4 for AR0387). The authors reported 76 differentially expressed genes (DEGs) in the in vitro comparison and 259 DEGs in the in vivo comparison, using thresholds of FDR < 0.01 and |LFC| >= 1.0. Our reanalysis achieved strong correlation with the published results. For the in vitro condition, we matched 76 genes with R² = 0.98 and 100% direction agreement. The in vivo analysis matched all 259 DEGs with R² = 0.9998 and 100% direction agreement. The key adhesin genes highlighted in the paper showed excellent concordance. SCF1 exhibited LFC of 8.61 (paper) versus 8.67 (our analysis) in vitro, and 4.47 versus 4.53 in vivo. ALS4112 showed similarly close agreement: 5.07 versus 5.08 in vitro, and 2.56 versus 2.56 in vivo.
 
 ![Wang Validation](validation_figures/wang_validation_scatter.png)
-*Figure 3: Validation of Wang et al. `DESeq2` results using official NCBI gene ID mapping. Left: In vitro biofilm comparison (n=76 genes, R²=0.98). Right: In vivo mouse catheter model (n=259 genes, R²=0.9998). Red dashed line indicates perfect correlation (y=x). Key adhesin genes SCF1 and ALS4112 are labeled.*
+*Figure 4: Validation of Wang et al. `DESeq2` results using official NCBI gene ID mapping. Left: In vitro biofilm comparison (n=76 genes, R²=0.98). Right: In vivo mouse catheter model (n=259 genes, R²=0.9998). Red dashed line indicates perfect correlation (y=x). Key adhesin genes SCF1 and ALS4112 are labeled.*
 
 ### Maintaining provenance
 
@@ -196,10 +203,10 @@ To characterize sources of *C. auris* WGS data, we analyzed the "Center Name" fi
 
 ### Counting Workflow
 
-All analyses used *Candidozyma auris* B8441 reference genome GCA_002759435.3 obtained BRC-Analytics (which mirrors NCBI Datasets). We then use an RNA-seq analysis workflow for obtaining gene counts [@iwc_rnaseq_pe] (Figure 4). For paired-end data, the workflow begins with `fastp` for adapter removal and quality filtering, discarding reads shorter than 15 bp. Filtered reads are aligned to the reference genome using `STAR` with ENCODE-standard parameters, which simultaneously generates gene-level counts. Quality metrics from all steps are aggregated by `MultiQC` into a comprehensive report. The workflow also generates strand-specific coverage tracks (bigWig format) for genome browser visualization. All tools, versions, and parameters are locked within the workflow definition, ensuring identical results across executions.
+All analyses used *Candidozyma auris* B8441 reference genome GCA_002759435.3 obtained BRC-Analytics (which mirrors NCBI Datasets). We then use an RNA-seq analysis workflow for obtaining gene counts [@iwc_rnaseq_pe] (Figure 5). For paired-end data, the workflow begins with `fastp` for adapter removal and quality filtering, discarding reads shorter than 15 bp. Filtered reads are aligned to the reference genome using `STAR` with ENCODE-standard parameters, which simultaneously generates gene-level counts. Quality metrics from all steps are aggregated by `MultiQC` into a comprehensive report. The workflow also generates strand-specific coverage tracks (bigWig format) for genome browser visualization. All tools, versions, and parameters are locked within the workflow definition, ensuring identical results across executions.
 
 ![IWC RNA-seq Workflow](validation_figures/rnaseq_workflow.png)
-*Figure 4: IWC paired-end RNA-seq workflow. The pipeline processes FASTQ files through quality filtering (`fastp`), alignment (`STAR`), and quantification, with optional coverage track generation and QC aggregation via `MultiQC`.*
+*Figure 5: IWC paired-end RNA-seq workflow. The pipeline processes FASTQ files through quality filtering (`fastp`), alignment (`STAR`), and quantification, with optional coverage track generation and QC aggregation via `MultiQC`.*
 
 ### Differential Expression Analysis
 
